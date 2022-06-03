@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/higorsantana-omega/uaifood-api/issues"
   },
-  "homepage": "https://github.com/higorsantana-omega/uaifood-api#readme"
+  "homepage": "https://github.com/higorsantana-omega/uaifood-api#readme",
+  "devDependencies": {
+    "git-commit-msg-linter": "^4.1.3"
+  }
 }
