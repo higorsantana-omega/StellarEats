@@ -1,4 +1,5 @@
-type Account = {
+export type Account = {
+  userID: string
   name: string
   email: string
   phone: string
