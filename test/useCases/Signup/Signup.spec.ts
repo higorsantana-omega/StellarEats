@@ -1,6 +1,6 @@
 import NotAllowed from '@/errors/NotAllowed'
 import createRepositories, { Repositories } from '@/repositories'
-import Signup from '@/useCases/Signup'
+import Signup from '@/useCases/account/Signup'
 
 let repository: Repositories
 

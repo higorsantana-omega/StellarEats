@@ -1,7 +1,7 @@
 import createMongoRepositories from './mongodb'
 import Repository from './Repository'
 
-import { Account } from '@/useCases/Signup'
+import Account from '@/useCases/account/Account'
 
 export interface Repositories {
   account: Repository<Account>

@@ -1,13 +1,7 @@
 import NotAllowed from '@/errors/NotAllowed'
 import Repository from '@/repositories/Repository'
 import toolbox from '@/toolbox/toolbox'
-
-export type Account = {
-  userID: string
-  name: string
-  email: string
-  phone: string
-}
+import Account from './Account'
 
 type SignupDTO = Omit<Account, 'userID'>
 

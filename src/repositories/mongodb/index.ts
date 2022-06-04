@@ -2,7 +2,7 @@ import { MongoClient } from 'mongodb'
 import MongoRepository from './MongoRepository'
 import { Repositories } from '..'
 
-import { Account } from '@/useCases/Signup'
+import Account from '@/useCases/account/Account'
 
 export default async function createMongoRepositories (): Promise<Repositories> {
   const client = new MongoClient(process.env.MONGODB_URL, {
