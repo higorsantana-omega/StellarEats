@@ -14,6 +14,7 @@ describe('Signup', () => {
       phone
     })
 
+    expect(typeof account.userID).toBe('string')
     expect(account.name).toBe(name)
     expect(account.email).toBe(email)
     expect(account.phone).toBe(phone)

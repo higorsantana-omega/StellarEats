@@ -1,3 +1,5 @@
+import toolbox from '@/toolbox/toolbox'
+
 export type Account = {
   userID: string
   name: string
@@ -5,11 +7,12 @@ export type Account = {
   phone: string
 }
 
-type SignupDTO = Account
+type SignupDTO = Omit<Account, 'userID'>
 
 export default class Signup {
   async execute (data: SignupDTO): Promise<Account> {
     const account: Account = {
+      userID: toolbox.generateUUID(),
       name: data.name,
       email: data.email,
       phone: data.phone
