@@ -25,4 +25,8 @@ export default class MongoRepository<Entity> implements Repository<Entity> {
       .project({ _id: 0 })
       .toArray()
   }
+
+  async remove (where: Partial<Entity>): Promise<void> {
+    await this.collection.deleteMany(where)
+  }
 }
