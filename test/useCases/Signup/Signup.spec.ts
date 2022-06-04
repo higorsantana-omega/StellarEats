@@ -22,17 +22,20 @@ describe('Signup', () => {
     const name = 'any name'
     const email = 'any@mail.com'
     const phone = '79992952868'
+    const password = '12345678'
 
     const account = await signup.execute({
       name,
       email,
-      phone
+      phone,
+      password
     })
 
     expect(typeof account.userID).toBe('string')
     expect(account.name).toBe(name)
     expect(account.email).toBe(email)
     expect(account.phone).toBe(phone)
+    expect(account.password).not.toEqual(password)
 
     const [addedUser] = await repository
       .account
@@ -47,18 +50,21 @@ describe('Signup', () => {
     const name = 'any name'
     const email = 'any2@mail.com'
     const phone = '79992952868'
+    const password = '12345678'
 
     await signup.execute({
       name,
       email,
-      phone
+      phone,
+      password
     })
 
     await expect(
       signup.execute({
         name: 'any name user',
         phone: '998294045',
-        email
+        email,
+        password
       })
     ).rejects.toEqual(new NotAllowed('Email already exist'))
   })

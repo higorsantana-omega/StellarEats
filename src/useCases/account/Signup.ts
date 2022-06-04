@@ -16,7 +16,8 @@ export default class Signup {
       userID: toolbox.generateUUID(),
       name: data.name,
       email: data.email,
-      phone: data.phone
+      phone: data.phone,
+      password: toolbox.encrypt(data.password)
     }
 
     await this.repository.save(account)
