@@ -1,3 +1,4 @@
+import Repository from '@/repositories/Repository'
 import toolbox from '@/toolbox/toolbox'
 
 export type Account = {
@@ -10,6 +11,8 @@ export type Account = {
 type SignupDTO = Omit<Account, 'userID'>
 
 export default class Signup {
+  constructor (private repository: Repository<Account>) {}
+
   async execute (data: SignupDTO): Promise<Account> {
     const account: Account = {
       userID: toolbox.generateUUID(),
@@ -18,6 +21,7 @@ export default class Signup {
       phone: data.phone
     }
 
+    await this.repository.save(account)
     return account
   }
 }
