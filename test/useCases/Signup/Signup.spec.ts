@@ -1,3 +1,4 @@
+import NotAllowed from '@/errors/NotAllowed'
 import createRepositories, { Repositories } from '@/repositories'
 import Signup from '@/useCases/Signup'
 
@@ -8,7 +9,7 @@ describe('Signup', () => {
     repository = await createRepositories()
   })
 
-  afterAll(async () => {
+  beforeEach(async () => {
     await Promise.all(
       Object.values(repository)
         .map(repository => repository.remove({}))
@@ -38,5 +39,27 @@ describe('Signup', () => {
       .select({ userID: account.userID })
 
     expect(addedUser.email).toBe(email)
+  })
+
+  it('should not be able create user already exists', async () => {
+    const signup = new Signup(repository.account)
+
+    const name = 'any name'
+    const email = 'any2@mail.com'
+    const phone = '79992952868'
+
+    await signup.execute({
+      name,
+      email,
+      phone
+    })
+
+    await expect(
+      signup.execute({
+        name: 'any name user',
+        phone: '998294045',
+        email
+      })
+    ).rejects.toEqual(new NotAllowed('Email already exist'))
   })
 })

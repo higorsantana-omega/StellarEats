@@ -1,3 +1,4 @@
+import NotAllowed from '@/errors/NotAllowed'
 import Repository from '@/repositories/Repository'
 import toolbox from '@/toolbox/toolbox'
 
@@ -14,6 +15,9 @@ export default class Signup {
   constructor (private repository: Repository<Account>) {}
 
   async execute (data: SignupDTO): Promise<Account> {
+    const [accountFound] = await this.repository.select({ email: data.email })
+    if (accountFound) throw new NotAllowed('Email already exist')
+
     const account: Account = {
       userID: toolbox.generateUUID(),
       name: data.name,
