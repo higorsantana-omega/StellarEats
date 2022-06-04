@@ -2,4 +2,8 @@ interface UUID {
   generateUUID(): string
 }
 
-export default interface ToolBox extends UUID {}
+interface Encryption {
+  encrypt(data: string): string
+}
+
+export default interface ToolBox extends UUID, Encryption {}
