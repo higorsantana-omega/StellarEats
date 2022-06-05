@@ -1,6 +1,7 @@
 import Route from '../Route'
 import RegisterItemController from './RegisterItemController'
 import RegisterRestaurantController from './RegisterRestaurantController'
+import UpdateItemController from './UpdateItemController'
 
 const restaurantRoutes: Route[] = [
   {
@@ -12,6 +13,11 @@ const restaurantRoutes: Route[] = [
     url: '/restaurant/:restaurantID',
     method: 'POST',
     Controller: RegisterItemController
+  },
+  {
+    url: '/restaurant/:restaurantID/:itemID',
+    method: 'PUT',
+    Controller: UpdateItemController
   }
 ]
 

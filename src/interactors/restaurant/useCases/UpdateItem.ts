@@ -17,6 +17,8 @@ export default class UpdateItem {
     const itemFound = restaurant.menu.find(i => i.itemID === itemID)
     if (!itemFound) throw new NotAllowed('Item not exists')
 
+    if (itemFound.name === item?.name) throw new NotAllowed('Already exists an item with the same name')
+
     const itemIndex = restaurant.menu.findIndex(i => i.itemID === itemID)
 
     const newItem: Item = Object.assign(itemFound, { ...item })
