@@ -1,4 +1,5 @@
 import Restaurant, { Address, Item } from '@/interactors/restaurant/Restaurant'
+import { ItemDTO } from '@/interactors/restaurant/useCases/RegisterItem'
 import application from '@test/application.spec'
 import { createAccount } from '../account/utils'
 
@@ -29,16 +30,20 @@ export async function createRestaurant (): Promise<Restaurant> {
   return restaurant
 }
 
-export async function createItem (restaurantID: string): Promise<Item> {
+export async function createItem (restaurantID: string, props?: Partial<ItemDTO>): Promise<Item> {
+  let data: ItemDTO = {
+    name: 'Pão de Queijo',
+    description: 'Pão de Queijo mineiro legítimo',
+    price: '3,90',
+    type: 'FOOD'
+  }
+
+  if (props) data = Object.assign(data, { ...props })
+
   const item = await application
     .interactors
     .restaurant
-    .registerItem(restaurantID, {
-      name: 'Pão de Queijo',
-      description: 'Pão de Queijo mineiro legítimo',
-      price: '3,90',
-      type: 'FOOD'
-    })
+    .registerItem(restaurantID, data)
 
   return item
 }

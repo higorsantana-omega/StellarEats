@@ -60,4 +60,23 @@ describe('Update Item', () => {
         })
     ).rejects.toEqual(new NotAllowed('Item not exists'))
   })
+
+  it('should not be able to update an item if item already exists', async () => {
+    const restaurant = await createRestaurant()
+
+    const firstItem = await createItem(restaurant.restaurantID)
+    const item = await createItem(restaurant.restaurantID, { name: 'Pão de Alho' })
+
+    await expect(
+      application
+        .interactors
+        .restaurant
+        .updateItem(restaurant.restaurantID, item.itemID, {
+          name: firstItem.name,
+          description: 'Pão de Queijo mineiro legítimo',
+          price: '5,50',
+          type: 'FOOD'
+        })
+    ).rejects.toEqual(new NotAllowed('Already exists an item with the same name'))
+  })
 })
