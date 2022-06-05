@@ -1,5 +1,6 @@
 import Restaurant, { Address, Item } from '@/interactors/restaurant/Restaurant'
 import application from '@test/application.spec'
+import { createAccount } from '../account/utils'
 
 export async function createRestaurant (): Promise<Restaurant> {
   const address: Address = {
@@ -14,6 +15,8 @@ export async function createRestaurant (): Promise<Restaurant> {
 
   const phone = '31988621608'
 
+  const account = await createAccount()
+
   const restaurant = await application
     .interactors
     .restaurant
@@ -22,7 +25,7 @@ export async function createRestaurant (): Promise<Restaurant> {
       gastronomy: 'Brasileira',
       address,
       phone
-    })
+    }, account.userID)
   return restaurant
 }
 

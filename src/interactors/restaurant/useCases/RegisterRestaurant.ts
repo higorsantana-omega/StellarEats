@@ -3,7 +3,7 @@ import Repository from '@/repositories/Repository'
 import ToolBox from '@/toolbox/IToolbox'
 import Restaurant from '../Restaurant'
 
-export type RestaurantDTO = Omit<Restaurant, 'restaurantID' | 'menu'>
+export type RestaurantDTO = Omit<Restaurant, 'restaurantID' | 'menu' | 'ownerID'>
 
 export default class ResgisterRestaurant {
   constructor (
