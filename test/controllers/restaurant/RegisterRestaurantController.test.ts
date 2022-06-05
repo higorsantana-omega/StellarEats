@@ -3,8 +3,8 @@ import application from '@test/application.spec'
 import { createAccount } from '@test/useCases/account/utils'
 import request from 'supertest'
 
-describe('Signup Controller', () => {
-  test('should return an account on success', async () => {
+describe('Register Restaurant Controller', () => {
+  test('should return an restaurant on success', async () => {
     const account = await createAccount()
     const token = (new Authentication()).createAccessToken(account.userID)
 
