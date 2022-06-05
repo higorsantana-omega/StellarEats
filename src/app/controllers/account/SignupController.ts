@@ -1,7 +1,8 @@
 
-import { BaseController, Request, Response } from '../BaseController'
+import { Request } from '../BaseController'
+import AccessController from './AccessController'
 
-export default class SignupController extends BaseController {
+export default class SignupController extends AccessController {
   protected expectedRequest: {} = {
     body: {
       name: 'required|string',
@@ -11,11 +12,9 @@ export default class SignupController extends BaseController {
     }
   }
 
-  protected async execute (request: Request, response: Response): Promise<Response> {
-    const account = await this.interactors
+  protected async setupAccount (request: Request): Promise<void> {
+    this.account = await this.interactors
       .account
       .signup(request.body)
-
-    return response.status(201).send({ account })
   }
 }
