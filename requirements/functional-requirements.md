@@ -1,6 +1,6 @@
 1. Register restaurant
 
-- [ ] Restaurant information (name, cuisine, menu, address, phone)
+- [x] Restaurant information (name, cuisine, menu, address, phone)
 - [ ] Save restaurant in database
 
 2. Registem item
