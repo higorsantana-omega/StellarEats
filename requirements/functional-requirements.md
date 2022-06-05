@@ -9,4 +9,4 @@
 
 3. Update item
 
-- [ ] Update restaurant or dish information
+- [x] Update item information
