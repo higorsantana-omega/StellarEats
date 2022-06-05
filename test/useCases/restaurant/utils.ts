@@ -1,9 +1,10 @@
 import Restaurant, { Address, Item } from '@/interactors/restaurant/Restaurant'
 import { ItemDTO } from '@/interactors/restaurant/useCases/RegisterItem'
+import { RestaurantDTO } from '@/interactors/restaurant/useCases/RegisterRestaurant'
 import application from '@test/application.spec'
 import { createAccount } from '../account/utils'
 
-export async function createRestaurant (): Promise<Restaurant> {
+export async function createRestaurant (props?: Partial<RestaurantDTO>): Promise<Restaurant> {
   const address: Address = {
     city: 'Belo Horizonte',
     street: 'Rua Doutor Lund',
@@ -18,15 +19,19 @@ export async function createRestaurant (): Promise<Restaurant> {
 
   const account = await createAccount()
 
+  let data: RestaurantDTO = {
+    name: 'Uai Food',
+    gastronomy: 'Brasileira',
+    address,
+    phone
+  }
+
+  if (props) data = Object.assign(data, { ...props })
+
   const restaurant = await application
     .interactors
     .restaurant
-    .registerRestaurant({
-      name: 'Uai Food',
-      gastronomy: 'Brasileira',
-      address,
-      phone
-    }, account.userID)
+    .registerRestaurant(data, account.userID)
   return restaurant
 }
 

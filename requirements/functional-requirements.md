@@ -10,3 +10,10 @@
 3. Update item
 
 - [x] Update item information
+
+4. Filter restaurants
+
+- [x] Filter by city
+- [ ] Filter by gastronomy
+- [ ] Filter by food
+- [ ] Filter by distance
