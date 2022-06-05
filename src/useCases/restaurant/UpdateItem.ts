@@ -1,4 +1,5 @@
 import EntityNotFound from '@/errors/EntityNotFound'
+import NotAllowed from '@/errors/NotAllowed'
 import Repository from '@/repositories/Repository'
 import Restaurant, { Item } from './Restaurant'
 
@@ -14,6 +15,8 @@ export default class UpdateItem {
     if (!restaurant) throw new EntityNotFound('Restaurant')
 
     const itemFound = restaurant.menu.find(i => i.itemID === itemID)
+    if (!itemFound) throw new NotAllowed('Item not exists')
+
     const itemIndex = restaurant.menu.findIndex(i => i.itemID === itemID)
 
     const newItem: Item = Object.assign(itemFound, { ...item })
