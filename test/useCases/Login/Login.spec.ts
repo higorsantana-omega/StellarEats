@@ -1,3 +1,4 @@
+import EntityNotFound from '@/errors/EntityNotFound'
 import NotAuthorized from '@/errors/NotAuthorized'
 import createRepositories, { Repositories } from '@/repositories'
 import Login from '@/useCases/account/Login'
@@ -64,5 +65,16 @@ describe('Login', () => {
         email, password: incorrectPassword
       })
     ).rejects.toEqual(new NotAuthorized('Incorrect password'))
+  })
+
+  it('should return an error if account not exist', async () => {
+    const login = new Login(repository.account)
+
+    await expect(
+      login.execute({
+        email: 'any@mail.com',
+        password: 'anypassword'
+      })
+    ).rejects.toEqual(new EntityNotFound('Account'))
   })
 })
