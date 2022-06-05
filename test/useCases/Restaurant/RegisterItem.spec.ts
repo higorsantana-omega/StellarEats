@@ -1,62 +1,53 @@
 import EntityNotFound from '@/errors/EntityNotFound'
 import NotAllowed from '@/errors/NotAllowed'
-import createRepositories, { Repositories } from '@/repositories'
-import RegisterItem from '@/interactors/restaurant/RegisterItem'
 import { createItem, createRestaurant } from './utils'
-
-let repository: Repositories
+import application from '@test/application.spec'
 
 describe('Register Item', () => {
-  beforeAll(async () => {
-    repository = await createRepositories()
-  })
-
-  beforeEach(async () => {
-    await Promise.all(
-      Object.values(repository)
-        .map(repository => repository.remove({}))
-    )
-  })
-
   it('should register an item in a certain restaurant', async () => {
-    const registerItem = new RegisterItem(repository.restaurant)
-    const restaurant = await createRestaurant(repository)
+    const restaurant = await createRestaurant()
 
-    const item = await registerItem.execute(restaurant.restaurantID, {
-      name: 'Pão de Queijo',
-      description: 'Pão de Queijo mineiro legítimo',
-      price: '3,90',
-      type: 'FOOD'
-    })
-
-    const [updatedRestaurant] = await repository
+    const item = await application
+      .interactors
       .restaurant
-      .select({ restaurantID: restaurant.restaurantID })
+      .registerItem(restaurant.restaurantID, {
+        name: 'Pão de Queijo',
+        description: 'Pão de Queijo mineiro legítimo',
+        price: '3,90',
+        type: 'FOOD'
+      })
+
+    const [updatedRestaurant] = await application
+      .interactors
+      .restaurant
+      .find({ restaurantID: restaurant.restaurantID })
 
     expect(updatedRestaurant.menu).toHaveLength(1)
     expect(updatedRestaurant.menu[0].name).toBe(item.name)
   })
 
   it('should not be able to register an item in a non-existent restaurant', async () => {
-    const registerItem = new RegisterItem(repository.restaurant)
     const restaurantID = 'restaurant-id-not-existent'
 
     await expect(
-      registerItem.execute(restaurantID, {
-        name: 'Pão de Queijo',
-        description: 'Pão de Queijo mineiro legítimo',
-        price: '3,90',
-        type: 'FOOD'
-      })
+      application
+        .interactors
+        .restaurant
+        .registerItem(restaurantID, {
+          name: 'Pão de Queijo',
+          description: 'Pão de Queijo mineiro legítimo',
+          price: '3,90',
+          type: 'FOOD'
+        })
     ).rejects.toEqual(new EntityNotFound('Restaurant'))
   })
 
   it('should not be able to register an item with the same name', async () => {
-    const restaurant = await createRestaurant(repository)
-    await createItem(restaurant.restaurantID, repository)
+    const restaurant = await createRestaurant()
+    await createItem(restaurant.restaurantID)
 
     await expect(
-      createItem(restaurant.restaurantID, repository)
+      createItem(restaurant.restaurantID)
     ).rejects.toEqual(new NotAllowed('Already exists an item with the same name'))
   })
 })

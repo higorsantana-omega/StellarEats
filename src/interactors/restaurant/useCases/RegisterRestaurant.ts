@@ -1,12 +1,15 @@
 import NotAllowed from '@/errors/NotAllowed'
 import Repository from '@/repositories/Repository'
-import toolbox from '@/toolbox/toolbox'
-import Restaurant from './Restaurant'
+import ToolBox from '@/toolbox/IToolbox'
+import Restaurant from '../Restaurant'
 
-type RestaurantDTO = Omit<Restaurant, 'restaurantID' | 'menu'>
+export type RestaurantDTO = Omit<Restaurant, 'restaurantID' | 'menu'>
 
 export default class ResgisterRestaurant {
-  constructor (private repository: Repository<Restaurant>) {}
+  constructor (
+    private repository: Repository<Restaurant>,
+    private toolbox: ToolBox
+  ) {}
 
   async execute (data: RestaurantDTO): Promise<Restaurant> {
     const [restaurantExist] = await this.repository.select({
@@ -17,7 +20,7 @@ export default class ResgisterRestaurant {
     const restaurant: Restaurant = {
       ...data,
       menu: [],
-      restaurantID: toolbox.generateUUID()
+      restaurantID: this.toolbox.generateUUID()
     }
 
     await this.repository.save(restaurant)

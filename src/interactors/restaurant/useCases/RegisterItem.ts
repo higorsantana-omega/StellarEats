@@ -2,9 +2,9 @@ import EntityNotFound from '@/errors/EntityNotFound'
 import NotAllowed from '@/errors/NotAllowed'
 import Repository from '@/repositories/Repository'
 import toolbox from '@/toolbox/toolbox'
-import Restaurant, { Item } from './Restaurant'
+import Restaurant, { Item } from '../Restaurant'
 
-type ItemDTO = Omit<Item, 'itemID'>
+export type ItemDTO = Omit<Item, 'itemID'>
 
 export default class RegisterItem {
   constructor (private repository: Repository<Restaurant>) {}
