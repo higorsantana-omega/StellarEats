@@ -3,6 +3,12 @@ module.exports = {
   coverageDirectory: 'coverage',
   collectCoverageFrom: [
     '<rootDir>/src/**/*.ts',
+    '!<rootDir>/src/app/*.ts',
+    '!<rootDir>/src/index.ts',
+    '!<rootDir>/src/errors/*.ts',
+    '!<rootDir>/src/repositories/*.ts',
+    '!<rootDir>/src/app/middleware/*.ts',
+    '!<rootDir>/src/app/controllers/BaseController.ts',
     '!**/test/**'
   ],
   transform: {
