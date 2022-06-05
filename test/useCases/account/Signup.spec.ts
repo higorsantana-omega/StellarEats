@@ -1,21 +1,7 @@
 import NotAllowed from '@/errors/NotAllowed'
-import createRepositories, { Repositories } from '@/repositories'
 import application from '@test/application.spec'
 
-let repository: Repositories
-
 describe('Signup', () => {
-  beforeAll(async () => {
-    repository = await createRepositories()
-  })
-
-  beforeEach(async () => {
-    await Promise.all(
-      Object.values(repository)
-        .map(repository => repository.remove({}))
-    )
-  })
-
   it('should create an account', async () => {
     const name = 'any name'
     const email = 'any@mail.com'
@@ -38,9 +24,10 @@ describe('Signup', () => {
     expect(account.phone).toBe(phone)
     expect(account.password).not.toEqual(password)
 
-    const [addedUser] = await repository
+    const [addedUser] = await application
+      .interactors
       .account
-      .select({ userID: account.userID })
+      .find({ userID: account.userID })
 
     expect(addedUser.email).toBe(email)
   })

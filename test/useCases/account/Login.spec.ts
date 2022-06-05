@@ -1,22 +1,8 @@
 import EntityNotFound from '@/errors/EntityNotFound'
 import NotAuthorized from '@/errors/NotAuthorized'
-import createRepositories, { Repositories } from '@/repositories'
 import application from '@test/application.spec'
 
-let repository: Repositories
-
 describe('Login', () => {
-  beforeAll(async () => {
-    repository = await createRepositories()
-  })
-
-  beforeEach(async () => {
-    await Promise.all(
-      Object.values(repository)
-        .map(repository => repository.remove({}))
-    )
-  })
-
   it('should be able to login in an existing account', async () => {
     const name = 'any name'
     const email = 'any@mail.com'
