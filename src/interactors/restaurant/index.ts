@@ -5,12 +5,12 @@ import ResgisterRestaurant, { RestaurantDTO } from './useCases/RegisterRestauran
 import UpdateItem from './useCases/UpdateItem'
 
 export default class RestaurantInteractor extends BaseInteractor<Restaurant> {
-  registerRestaurant (data: RestaurantDTO): Promise<Restaurant> {
+  registerRestaurant (data: RestaurantDTO, ownerID: string): Promise<Restaurant> {
     const registerRestaurant = new ResgisterRestaurant(
       this.repository,
       this.toolbox
     )
-    return registerRestaurant.execute(data)
+    return registerRestaurant.execute(data, ownerID)
   }
 
   registerItem (restaurantID: string, item: ItemDTO): Promise<Item> {

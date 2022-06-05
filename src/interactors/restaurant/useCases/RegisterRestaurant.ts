@@ -11,7 +11,7 @@ export default class ResgisterRestaurant {
     private toolbox: ToolBox
   ) {}
 
-  async execute (data: RestaurantDTO): Promise<Restaurant> {
+  async execute (data: RestaurantDTO, ownerID: string): Promise<Restaurant> {
     const [restaurantExist] = await this.repository.select({
       $or: [{ name: data.name }, { phone: data.phone }]
     })
@@ -20,7 +20,8 @@ export default class ResgisterRestaurant {
     const restaurant: Restaurant = {
       ...data,
       menu: [],
-      restaurantID: this.toolbox.generateUUID()
+      restaurantID: this.toolbox.generateUUID(),
+      ownerID
     }
 
     await this.repository.save(restaurant)

@@ -20,6 +20,7 @@ type Gastronomy = 'Brasileira' | 'Árabe' | 'Japonesa' | 'Frutos do mar' | 'Mexi
 
 type Restaurant = {
   restaurantID: string
+  ownerID: string
 
   name: string
   gastronomy: Gastronomy

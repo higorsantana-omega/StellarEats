@@ -22,7 +22,7 @@ export default class RegisterRestaurantController extends BaseController {
   protected async execute (request: Request, response: Response): Promise<Response> {
     const restaurant = await this.interactors
       .restaurant
-      .registerRestaurant(request.body)
+      .registerRestaurant(request.body, this.getUserID(request))
 
     return response.status(201).send({ restaurant })
   }
