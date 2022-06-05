@@ -2,14 +2,14 @@ import EntityNotFound from '@/errors/EntityNotFound'
 import NotAuthorized from '@/errors/NotAuthorized'
 import Repository from '@/repositories/Repository'
 import toolbox from '@/toolbox/toolbox'
-import Account from './Account'
+import Account from '../Account'
 
-interface LoginDTO {
+export interface LoginDTO {
   email: string
   password: string
 }
 
-type ShowAccountDTO = Omit<Account, 'password'>
+export type ShowAccountDTO = Omit<Account, 'password'>
 
 export default class Login {
   constructor (private repository: Repository<Account>) {}

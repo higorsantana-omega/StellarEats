@@ -1,9 +1,9 @@
 import NotAllowed from '@/errors/NotAllowed'
 import Repository from '@/repositories/Repository'
 import toolbox from '@/toolbox/toolbox'
-import Account from './Account'
+import Account from '../Account'
 
-type SignupDTO = Omit<Account, 'userID'>
+export type SignupDTO = Omit<Account, 'userID'>
 
 export default class Signup {
   constructor (private repository: Repository<Account>) {}

@@ -1,8 +1,8 @@
 import createMongoRepositories from './mongodb'
 import Repository from './Repository'
 
-import Account from '@/useCases/account/Account'
-import Restaurant from '@/useCases/restaurant/Restaurant'
+import Restaurant from '@/interactors/restaurant/Restaurant'
+import Account from '@/interactors/account/Account'
 
 export interface Repositories {
   account: Repository<Account>
