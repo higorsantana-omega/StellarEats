@@ -1,7 +1,7 @@
 import { Repositories } from '@/repositories'
-import RegisterItem from '@/useCases/restaurant/RegisterItem'
-import ResgisterRestaurant from '@/useCases/restaurant/RegisterRestaurant'
-import Restaurant, { Address, Item } from '@/useCases/restaurant/Restaurant'
+import RegisterItem from '@/interactors/restaurant/RegisterItem'
+import ResgisterRestaurant from '@/interactors/restaurant/RegisterRestaurant'
+import Restaurant, { Address, Item } from '@/interactors/restaurant/Restaurant'
 
 export async function createRestaurant (repository: Repositories): Promise<Restaurant> {
   const resgisterRestaurant = new ResgisterRestaurant(repository.restaurant)

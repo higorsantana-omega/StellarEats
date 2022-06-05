@@ -1,7 +1,7 @@
 import NotAllowed from '@/errors/NotAllowed'
 import createRepositories, { Repositories } from '@/repositories'
-import ResgisterRestaurant from '@/useCases/restaurant/RegisterRestaurant'
-import { Address } from '@/useCases/restaurant/Restaurant'
+import ResgisterRestaurant from '@/interactors/restaurant/RegisterRestaurant'
+import { Address } from '@/interactors/restaurant/Restaurant'
 import { createRestaurant } from './utils'
 
 let repository: Repositories

@@ -1,7 +1,7 @@
 import EntityNotFound from '@/errors/EntityNotFound'
 import NotAllowed from '@/errors/NotAllowed'
 import createRepositories, { Repositories } from '@/repositories'
-import RegisterItem from '@/useCases/restaurant/RegisterItem'
+import RegisterItem from '@/interactors/restaurant/RegisterItem'
 import { createItem, createRestaurant } from './utils'
 
 let repository: Repositories

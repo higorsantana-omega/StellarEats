@@ -11,5 +11,6 @@ module.exports = {
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
     '^@test/(.*)$': '<rootDir>/test/$1'
-  }
+  },
+  testPathIgnorePatterns: ['<rootDir>/test/application.spec.ts']
 }

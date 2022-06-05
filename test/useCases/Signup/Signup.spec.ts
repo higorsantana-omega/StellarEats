@@ -1,6 +1,6 @@
 import NotAllowed from '@/errors/NotAllowed'
 import createRepositories, { Repositories } from '@/repositories'
-import Signup from '@/useCases/account/Signup'
+import application from '@test/application.spec'
 
 let repository: Repositories
 
@@ -17,19 +17,20 @@ describe('Signup', () => {
   })
 
   it('should create an account', async () => {
-    const signup = new Signup(repository.account)
-
     const name = 'any name'
     const email = 'any@mail.com'
     const phone = '79992952868'
     const password = '12345678'
 
-    const account = await signup.execute({
-      name,
-      email,
-      phone,
-      password
-    })
+    const account = await application
+      .interactors
+      .account
+      .signup({
+        name,
+        email,
+        phone,
+        password
+      })
 
     expect(typeof account.userID).toBe('string')
     expect(account.name).toBe(name)
@@ -45,27 +46,31 @@ describe('Signup', () => {
   })
 
   it('should not be able create user already exists', async () => {
-    const signup = new Signup(repository.account)
-
     const name = 'any name'
     const email = 'any2@mail.com'
     const phone = '79992952868'
     const password = '12345678'
 
-    await signup.execute({
-      name,
-      email,
-      phone,
-      password
-    })
-
-    await expect(
-      signup.execute({
-        name: 'any name user',
-        phone: '998294045',
+    await application
+      .interactors
+      .account
+      .signup({
+        name,
         email,
+        phone,
         password
       })
+
+    await expect(
+      application
+        .interactors
+        .account
+        .signup({
+          name: 'any name user',
+          phone: '998294045',
+          email,
+          password
+        })
     ).rejects.toEqual(new NotAllowed('Email already exist'))
   })
 })
