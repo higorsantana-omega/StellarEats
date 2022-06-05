@@ -1,9 +1,25 @@
+import NotAllowed from '@/errors/NotAllowed'
+import createRepositories, { Repositories } from '@/repositories'
 import ResgisterRestaurant from '@/useCases/restaurant/RegisterRestaurant'
 import { Address, Item } from '@/useCases/restaurant/Restaurant'
+import { createRestaurant } from './utils'
+
+let repository: Repositories
 
 describe('Register Restaurant', () => {
+  beforeAll(async () => {
+    repository = await createRepositories()
+  })
+
+  beforeEach(async () => {
+    await Promise.all(
+      Object.values(repository)
+        .map(repository => repository.remove({}))
+    )
+  })
+
   it('should register an restaurant', async () => {
-    const resgisterRestaurant = new ResgisterRestaurant()
+    const resgisterRestaurant = new ResgisterRestaurant(repository.restaurant)
 
     const address: Address = {
       city: 'Belo Horizonte',
@@ -37,5 +53,13 @@ describe('Register Restaurant', () => {
     expect(restaurant.menu[0]).toEqual(item)
     expect(restaurant.address).toEqual(address)
     expect(restaurant.phone).toBe(phone)
+  })
+
+  it('should not be able register an restaurant already exist', async () => {
+    await createRestaurant(repository)
+
+    await expect(
+      createRestaurant(repository)
+    ).rejects.toEqual(new NotAllowed('Restaurant already exist'))
   })
 })
