@@ -1,4 +1,5 @@
 export type Item = {
+  itemID: string
   name: string
   description: string
   price: string

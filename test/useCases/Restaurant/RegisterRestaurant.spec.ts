@@ -1,7 +1,7 @@
 import NotAllowed from '@/errors/NotAllowed'
 import createRepositories, { Repositories } from '@/repositories'
 import ResgisterRestaurant from '@/useCases/restaurant/RegisterRestaurant'
-import { Address, Item } from '@/useCases/restaurant/Restaurant'
+import { Address } from '@/useCases/restaurant/Restaurant'
 import { createRestaurant } from './utils'
 
 let repository: Repositories
@@ -31,26 +31,17 @@ describe('Register Restaurant', () => {
       district: 'Santa Cruz'
     }
 
-    const item: Item = {
-      name: 'Feijão tropeiro',
-      description: 'Receita típica de Minas Gerais',
-      price: '35,90',
-      type: 'FOOD'
-    }
-
     const phone = '31988621608'
 
     const restaurant = await resgisterRestaurant.execute({
       name: 'Uai Food',
       gastronomy: 'Brasileira',
-      menu: [item],
       address,
       phone
     })
 
     expect(restaurant).toHaveProperty('restaurantID')
     expect(restaurant.restaurantID).not.toBe('')
-    expect(restaurant.menu[0]).toEqual(item)
     expect(restaurant.address).toEqual(address)
     expect(restaurant.phone).toBe(phone)
   })

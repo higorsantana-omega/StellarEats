@@ -33,8 +33,8 @@ describe('Register Item', () => {
       .restaurant
       .select({ restaurantID: restaurant.restaurantID })
 
-    expect(updatedRestaurant.menu).toHaveLength(2)
-    expect(updatedRestaurant.menu[1].name).toBe(item.name)
+    expect(updatedRestaurant.menu).toHaveLength(1)
+    expect(updatedRestaurant.menu[0].name).toBe(item.name)
   })
 
   it('should not be able to register an item in a non-existent restaurant', async () => {

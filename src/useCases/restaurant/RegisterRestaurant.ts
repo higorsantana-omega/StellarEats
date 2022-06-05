@@ -3,7 +3,7 @@ import Repository from '@/repositories/Repository'
 import toolbox from '@/toolbox/toolbox'
 import Restaurant from './Restaurant'
 
-type RestaurantDTO = Omit<Restaurant, 'restaurantID'>
+type RestaurantDTO = Omit<Restaurant, 'restaurantID' | 'menu'>
 
 export default class ResgisterRestaurant {
   constructor (private repository: Repository<Restaurant>) {}
@@ -15,8 +15,9 @@ export default class ResgisterRestaurant {
     if (restaurantExist) throw new NotAllowed('Restaurant already exist')
 
     const restaurant: Restaurant = {
-      restaurantID: toolbox.generateUUID(),
-      ...data
+      ...data,
+      menu: [],
+      restaurantID: toolbox.generateUUID()
     }
 
     await this.repository.save(restaurant)
