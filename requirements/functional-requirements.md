@@ -5,7 +5,7 @@
 
 2. Register item
 
-- [ ] Register menu item with dish, description, price
+- [x] Register menu item with dish, description, price
 
 3. Update item
 

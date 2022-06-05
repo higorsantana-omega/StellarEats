@@ -1,4 +1,5 @@
 import { Repositories } from '@/repositories'
+import RegisterItem from '@/useCases/restaurant/RegisterItem'
 import ResgisterRestaurant from '@/useCases/restaurant/RegisterRestaurant'
 import Restaurant, { Address, Item } from '@/useCases/restaurant/Restaurant'
 
@@ -32,4 +33,17 @@ export async function createRestaurant (repository: Repositories): Promise<Resta
     phone
   })
   return restaurant
+}
+
+export async function createItem (restaurantID: string, repository: Repositories): Promise<Item> {
+  const registerItem = new RegisterItem(repository.restaurant)
+
+  const item = await registerItem.execute(restaurantID, {
+    name: 'Pão de Queijo',
+    description: 'Pão de Queijo mineiro legítimo',
+    price: '3,90',
+    type: 'FOOD'
+  })
+
+  return item
 }
