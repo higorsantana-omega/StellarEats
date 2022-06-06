@@ -1,5 +1,5 @@
 import BaseInteractor from '../BaseInteractor'
-import Restaurant, { Item } from './Restaurant'
+import Restaurant, { FilterRestaurantsQuery, Item } from './Restaurant'
 import FilterRestaurants from './useCases/FilterRestaurants'
 import RegisterItem, { ItemDTO } from './useCases/RegisterItem'
 import ResgisterRestaurant, { RestaurantDTO } from './useCases/RegisterRestaurant'
@@ -24,8 +24,8 @@ export default class RestaurantInteractor extends BaseInteractor<Restaurant> {
     return updateItem.execute(restaurantID, itemID, item)
   }
 
-  filterRestaurants (city: string): Promise<Restaurant[]> {
+  filterRestaurants (filterQuery: FilterRestaurantsQuery): Promise<Restaurant[]> {
     const filterRestaurants = new FilterRestaurants(this.repository)
-    return filterRestaurants.execute(city)
+    return filterRestaurants.execute(filterQuery)
   }
 }

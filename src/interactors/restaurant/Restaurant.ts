@@ -16,7 +16,12 @@ export type Address = {
   state: string
 }
 
-type Gastronomy = 'Brasileira' | 'Árabe' | 'Japonesa' | 'Frutos do mar' | 'Mexicana' | 'Chinesa' | 'Tailandesa'
+export type Gastronomy = 'Brasileira' | 'Árabe' | 'Japonesa' | 'Frutos do mar' | 'Mexicana' | 'Chinesa' | 'Tailandesa'
+
+export type FilterRestaurantsQuery = {
+  city?: string
+  gastronomy?: Gastronomy
+}
 
 type Restaurant = {
   restaurantID: string

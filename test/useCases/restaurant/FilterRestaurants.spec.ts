@@ -22,22 +22,50 @@ describe('Filter Restaurants', () => {
     const restaurants1 = await application
       .interactors
       .restaurant
-      .filterRestaurants('Belo Horizonte')
+      .filterRestaurants({ city: 'Belo Horizonte' })
 
     expect(restaurants1).toHaveLength(2)
 
     const restaurants2 = await application
       .interactors
       .restaurant
-      .filterRestaurants('Juiz de fora')
+      .filterRestaurants({ city: 'Juiz de fora' })
 
     expect(restaurants2).toHaveLength(1)
 
     const restaurants3 = await application
       .interactors
       .restaurant
-      .filterRestaurants('Betim')
+      .filterRestaurants({ city: 'Betim' })
 
     expect(restaurants3).toHaveLength(0)
+  })
+
+  it('should filter restaurants by gastronomy', async () => {
+    await createRestaurant()
+    await createRestaurant({
+      name: 'Uai Food 2',
+      phone: '111112222',
+      gastronomy: 'Chinesa'
+    })
+    await createRestaurant({
+      name: 'Paulistano',
+      phone: '122223333',
+      gastronomy: 'Chinesa'
+    })
+
+    const restaurants1 = await application
+      .interactors
+      .restaurant
+      .filterRestaurants({ gastronomy: 'Brasileira' })
+
+    expect(restaurants1).toHaveLength(1)
+
+    const restaurants2 = await application
+      .interactors
+      .restaurant
+      .filterRestaurants({ gastronomy: 'Chinesa' })
+
+    expect(restaurants2).toHaveLength(2)
   })
 })
