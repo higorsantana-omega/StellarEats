@@ -1,0 +1,348 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Uaifood API Documentation",
+    "description": "This is an API",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/signup": {
+      "post": {
+        "tags": ["Signup"],
+        "summary": "Signup user",
+        "description": "Signup user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "required": true
+                  },
+                  "phone": {
+                    "type": "string",
+                    "required": true
+                  },
+                  "email": {
+                    "type": "string",
+                    "required": true
+                  },
+                  "password": {
+                    "type": "string",
+                    "required": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "403": {
+            "description": "Email already exist"
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "tags": ["Login"],
+        "summary": "Login user",
+        "description": "Login user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "required": true
+                  },
+                  "password": {
+                    "type": "string",
+                    "required": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "401": {
+            "description": "Incorrect password"
+          },
+          "404": {
+            "description": "Account not exists"
+          }
+        }
+      }
+    },
+    "/restaurant": {
+      "post": {
+        "tags": ["Register Restaurant"],
+        "summary": "Register an restaurant",
+        "description": "Register an restaurant",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Access token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "required": true
+                  },
+                  "gastronomy": {
+                    "type": "string",
+                    "required": true
+                  },
+                  "phone": {
+                    "type": "string",
+                    "required": true
+                  },
+                  "address": {
+                    "type": "object",
+                    "properties": {
+                      "postcode": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "street": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "number": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "complement": {
+                        "type": "string"
+                      },
+                      "district": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "city": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "state": {
+                        "type": "string|size:2",
+                        "required": true
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Restaurant already exist"
+          }
+        }
+      }
+    },
+    "/restaurant/:restaurantID": {
+      "post": {
+        "tags": ["Register Item"],
+        "summary": "Register item in an restaurant",
+        "description": "Register item in an restaurant",
+        "parameters": [
+          {
+            "name": "restaurantID",
+            "in": "path",
+            "description": "restaurantID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Access token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "required": true
+                  },
+                  "description": {
+                    "type": "string",
+                    "required": true
+                  },
+                  "price": {
+                    "type": "string",
+                    "required": true
+                  },
+                  "type": {
+                    "type": "string",
+                    "required": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Already exists an item with the same name"
+          },
+          "404": {
+            "description": "Restaurant not found"
+          }
+        }
+      }
+    },
+    "/restaurant/:restaurantID/:itemID": {
+      "put": {
+        "tags": ["Update Item"],
+        "summary": "Update item in an restaurant",
+        "description": "Update item in an restaurant",
+        "parameters": [
+          {
+            "name": "restaurantID",
+            "in": "path",
+            "description": "restaurantID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "itemID",
+            "in": "path",
+            "description": "itemID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Access token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "price": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "401": {
+            "description": "Item not exists or Already exists an item with the same name"
+          },
+          "404": {
+            "description": "Restaurant not found"
+          }
+        }
+      }
+    },
+    "/restaurants": {
+      "post": {
+        "tags": ["Filter Restaurants"],
+        "summary": "Filter Restaurants",
+        "description": "Filter Restaurants",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Access token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "city": {
+                    "type": "string"
+                  },
+                  "food": {
+                    "type": "string"
+                  },
+                  "gastronomy": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    }
+  }
+}
