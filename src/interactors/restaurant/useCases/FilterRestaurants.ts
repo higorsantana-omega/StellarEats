@@ -4,7 +4,7 @@ import Restaurant, { FilterRestaurantsQuery, Gastronomy } from '../Restaurant'
 export default class FilterRestaurants {
   constructor (private repository: Repository<Restaurant>) {}
 
-  async execute (filterQuery: FilterRestaurantsQuery): Promise<Restaurant[]> {
+  async execute (filterQuery?: FilterRestaurantsQuery): Promise<Restaurant[]> {
     let filterObj: {
       'address.city'?: string
       gastronomy?: Gastronomy

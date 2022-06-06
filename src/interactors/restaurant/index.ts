@@ -24,7 +24,7 @@ export default class RestaurantInteractor extends BaseInteractor<Restaurant> {
     return updateItem.execute(restaurantID, itemID, item)
   }
 
-  filterRestaurants (filterQuery: FilterRestaurantsQuery): Promise<Restaurant[]> {
+  filterRestaurants (filterQuery?: FilterRestaurantsQuery): Promise<Restaurant[]> {
     const filterRestaurants = new FilterRestaurants(this.repository)
     return filterRestaurants.execute(filterQuery)
   }

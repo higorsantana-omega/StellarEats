@@ -141,4 +141,32 @@ describe('Filter Restaurants', () => {
 
     expect(restaurants2).toHaveLength(1)
   })
+
+  it('should list restaurants without filters', async () => {
+    const restaurant1 = await createRestaurant()
+    const restaurant2 = await createRestaurant({
+      name: 'Uai Food 2',
+      phone: '111112222',
+      gastronomy: 'Chinesa',
+      address: {
+        city: 'Betim'
+      } as Address
+    })
+    const restaurant3 = await createRestaurant({
+      name: 'Paulistano',
+      phone: '122223333',
+      gastronomy: 'Chinesa'
+    })
+
+    await createItem(restaurant1.restaurantID)
+    await createItem(restaurant2.restaurantID, { name: 'Pizza' })
+    await createItem(restaurant3.restaurantID, { name: 'Pizza' })
+
+    const restaurants1 = await application
+      .interactors
+      .restaurant
+      .filterRestaurants()
+
+    expect(restaurants1).toHaveLength(3)
+  })
 })
