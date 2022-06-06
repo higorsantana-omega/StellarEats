@@ -13,7 +13,7 @@
 
 #### Functionalities
 
-Signup, Login and Authentication
+Signup, Login and Authentication (using jwt)
 Register a restaurant and an item
 Filter restaurants by city, gastronomy, food
 
