@@ -1,5 +1,6 @@
 import { createItem, createRestaurant } from './utils'
 import application from '@test/application.spec'
+import { Address } from '@/interactors/restaurant/Restaurant'
 
 describe('Filter Restaurants', () => {
   it('should filter restaurants by city', async () => {
@@ -104,5 +105,40 @@ describe('Filter Restaurants', () => {
       .filterRestaurants({ food: 'Pão de Quei' })
 
     expect(restaurants3).toHaveLength(2)
+  })
+
+  it('should filter restaurants by all filters', async () => {
+    const restaurant1 = await createRestaurant()
+    const restaurant2 = await createRestaurant({
+      name: 'Uai Food 2',
+      phone: '111112222',
+      gastronomy: 'Chinesa',
+      address: {
+        city: 'Betim'
+      } as Address
+    })
+    const restaurant3 = await createRestaurant({
+      name: 'Paulistano',
+      phone: '122223333',
+      gastronomy: 'Chinesa'
+    })
+
+    await createItem(restaurant1.restaurantID)
+    await createItem(restaurant2.restaurantID, { name: 'Pizza' })
+    await createItem(restaurant3.restaurantID, { name: 'Pizza' })
+
+    const restaurants1 = await application
+      .interactors
+      .restaurant
+      .filterRestaurants({ food: 'Pizza', gastronomy: 'Chinesa' })
+
+    expect(restaurants1).toHaveLength(2)
+
+    const restaurants2 = await application
+      .interactors
+      .restaurant
+      .filterRestaurants({ food: 'Pizza', gastronomy: 'Chinesa', city: 'Betim' })
+
+    expect(restaurants2).toHaveLength(1)
   })
 })
