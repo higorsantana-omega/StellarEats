@@ -302,7 +302,7 @@
       }
     },
     "/restaurants": {
-      "post": {
+      "get": {
         "tags": ["Filter Restaurants"],
         "summary": "Filter Restaurants",
         "description": "Filter Restaurants",
@@ -315,28 +315,32 @@
             "schema": {
               "type": "string"
             }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "city": {
-                    "type": "string"
-                  },
-                  "food": {
-                    "type": "string"
-                  },
-                  "gastronomy": {
-                    "type": "string"
-                  }
-                }
-              }
+          },
+          {
+            "name": "city",
+            "in": "query",
+            "description": "Values: Belo Horizonte, Betim, etc.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "food",
+            "in": "query",
+            "description": "Ex: Pão de Queijo. This search is full-text",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "gastronomy",
+            "in": "query",
+            "description": "Values: 'Brasileira', 'Árabe', 'Japonesa', 'Frutos do mar', 'Mexicana', 'Chinesa', 'Tailandesa'",
+            "schema": {
+              "type": "string"
             }
           }
-        },
+        ],
         "responses": {
           "200": {
             "description": "Success"
