@@ -22,7 +22,7 @@ const restaurantRoutes: Route[] = [
   },
   {
     url: '/restaurants',
-    method: 'POST',
+    method: 'GET',
     Controller: FilterRestaurantsController
   }
 ]
