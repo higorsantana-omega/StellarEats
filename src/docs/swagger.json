@@ -112,7 +112,7 @@
                     "required": true
                   },
                   "gastronomy": {
-                    "type": "string",
+                    "type": "'Brasileira' | 'Árabe' | 'Japonesa' | 'Frutos do mar' | 'Mexicana' | 'Chinesa' | 'Tailandesa'",
                     "required": true
                   },
                   "phone": {
@@ -210,7 +210,7 @@
                     "required": true
                   },
                   "type": {
-                    "type": "string",
+                    "type": "FOOD or DRINK",
                     "required": true
                   }
                 }
@@ -281,7 +281,7 @@
                     "type": "string"
                   },
                   "type": {
-                    "type": "string"
+                    "type": "FOOD or DRINK"
                   }
                 }
               }
