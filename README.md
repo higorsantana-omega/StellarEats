@@ -9,6 +9,7 @@
 
 - Technologies: Node, express, typescript, jest, mongodb, swagger
 - Design patterns: Interactors/Facade, Factory, Repository
+- CI/CD
 
 #### Functionalities
 
