@@ -20,6 +20,7 @@ export type Gastronomy = 'Brasileira' | 'Árabe' | 'Japonesa' | 'Frutos do mar' 
 
 export type FilterRestaurantsQuery = {
   city?: string
+  food?: string
   gastronomy?: Gastronomy
 }
 

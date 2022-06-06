@@ -20,6 +20,8 @@ export default class MongoRepository<Entity> implements Repository<Entity> {
   }
 
   async select (where: Partial<FilterQuery<Entity>>): Promise<Entity[]> {
+    await this.collection.createIndex({ 'menu.name': 'text' })
+
     return await this.collection
       .find(where)
       .project({ _id: 0 })

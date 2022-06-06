@@ -14,6 +14,6 @@
 4. Filter restaurants
 
 - [x] Filter by city
-- [ ] Filter by gastronomy
-- [ ] Filter by food
+- [x] Filter by gastronomy
+- [x] Filter by food
 - [ ] Filter by distance

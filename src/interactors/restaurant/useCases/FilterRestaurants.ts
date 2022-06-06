@@ -5,11 +5,12 @@ export default class FilterRestaurants {
   constructor (private repository: Repository<Restaurant>) {}
 
   async execute (filterQuery: FilterRestaurantsQuery): Promise<Restaurant[]> {
-    const filterObj: {
+    let filterObj: {
       'address.city'?: string
       gastronomy?: Gastronomy
     } = {}
 
+    if (filterQuery?.food) filterObj = Object.assign(filterObj, { $text: { $search: filterQuery.food } })
     if (filterQuery?.city) filterObj['address.city'] = filterQuery.city
     if (filterQuery?.gastronomy) filterObj.gastronomy = filterQuery.gastronomy
 
