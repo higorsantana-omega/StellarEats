@@ -3,6 +3,9 @@ import express, { Request, Response, Router } from 'express'
 import routes from './controllers'
 import Route from './controllers/Route'
 
+import swaggerUi from 'swagger-ui-express'
+import swaggerFile from '@/docs/swagger.json'
+
 export default async function createApp (interactors: Interactors) {
   const app = express()
 
@@ -10,6 +13,8 @@ export default async function createApp (interactors: Interactors) {
 
   app.use(express.json())
   app.use(express.urlencoded({ extended: true }))
+
+  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 
   app.use('/', createControllers(routes, interactors))
 
