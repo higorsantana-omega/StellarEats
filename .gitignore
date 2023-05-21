@@ -107,3 +107,8 @@ api/node_modules
 api/.env
 api/dist
 api/coverage
+
+web/node_modules
+web/.env
+web/dist
+web/coverage
